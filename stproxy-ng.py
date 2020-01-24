@@ -414,9 +414,13 @@ class StratumProxy():
 
     def _detect_set_extranonce(self):
         self.use_set_extranonce = False
-        for pool in self.set_extranonce_pools:
-            if self.host.find(pool) > 0:
-                self.use_set_extranonce = True
+        try:
+            for pool in self.set_extranonce_pools:
+                if self.host.find(pool) > 0:
+                    self.use_set_extranonce = True
+        except:
+            print('no upstream specified.')
+            sys.exit()
 
     def set_pool(self, host, port, user, passw, timeout=120):
         self.log.warning(
